@@ -1,6 +1,8 @@
 export const initialStore=()=>{
   return{
     message: null,
+    personajes:null,
+    favoritos:[],
     todos: [
       {
         id: 1,
@@ -18,6 +20,16 @@ export const initialStore=()=>{
 
 export default function storeReducer(store, action = {}) {
   switch(action.type){
+    case 'addfav':
+      return{
+        ...store,
+        favoritos: [...store.favoritos,action]
+      }
+    case 'savecharacters':
+      return{
+        ...store,
+        personajes:action.payload
+      }        
     case 'add_task':
 
       const { id,  color } = action.payload
