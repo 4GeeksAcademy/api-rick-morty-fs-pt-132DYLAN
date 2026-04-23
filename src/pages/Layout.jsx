@@ -22,6 +22,20 @@ export const Layout = () => {
             payload: data
         })
         console.log("3. dispatch ejecutado")
+    });
+    api_rick_morty.getepisodes().then(data=>{
+       
+        dispatch({
+             type: 'saveepisodes',
+            payload: data
+        })
+    })
+    api_rick_morty.getlocations().then(data=>{
+       console.log("locations:", data)  // ← ¿qué sale aquí?
+        dispatch({
+             type: 'savelocations',
+            payload: data
+        })
     })
 }, [])
        

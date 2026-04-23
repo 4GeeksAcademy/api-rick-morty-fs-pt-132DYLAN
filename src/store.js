@@ -1,8 +1,10 @@
-export const initialStore=()=>{
-  return{
+export const initialStore = () => {
+  return {
     message: null,
-    personajes:null,
-    favoritos:[],
+    personajes: null,
+    locations: null,
+    episodes: null,
+    favoritos: [],
     todos: [
       {
         id: 1,
@@ -19,20 +21,33 @@ export const initialStore=()=>{
 }
 
 export default function storeReducer(store, action = {}) {
-  switch(action.type){
-    case 'addfav':
-      return{
+  switch (action.type) {
+    case 'addFav':
+      const exist = store.favoritos.includes(action.payload)
+      if (exist) {
+        return {
+          ...store,
+          favoritos: store.favoritos.filter((fav) => {
+            return fav != action.payload
+          })
+        }
+      }
+      return {
         ...store,
-        favoritos: [...store.favoritos,action]
+        favoritos: [...store.favoritos, action.payload]
       }
     case 'savecharacters':
-      return{
+      return {
         ...store,
-        personajes:action.payload
-      }        
+        personajes: action.payload
+      }
+    case 'savelocations':
+      return { ...store, locations: action.payload }
+    case 'saveepisodes':
+      return{...store,episodes: action.payload}  
     case 'add_task':
 
-      const { id,  color } = action.payload
+      const { id, color } = action.payload
 
       return {
         ...store,
@@ -40,5 +55,5 @@ export default function storeReducer(store, action = {}) {
       };
     default:
       throw Error('Unknown action.');
-  }    
+  }
 }
